@@ -4,6 +4,25 @@
 using namespace std;
 
 map<char, int> number_dict();
+bool is_int(string s);
+int to_int(string s);
+bool is_double(string s);
+double to_doublee(string num);
+
+int check_floating_point(string num);
+
+int check_floating_point(string num){
+    int count = 0;
+    for (int i = 0; i < num.length(); i++)
+    {
+        if (num[i] == '.')
+        {
+            ++count;
+        }
+        
+    }
+    return count;
+}
 
 bool is_int(string s)
 {
@@ -43,6 +62,9 @@ int to_int(string s)
 bool is_double(string s)
 {
     string symbols = "0123456789.";
+    if (check_floating_point(s) != 1){
+        return false;
+    }
     bool flag;
     for (int i = 0; i < s.length(); i++)
     {
@@ -60,7 +82,7 @@ bool is_double(string s)
     return true;
 }
 
-double to_doublee(string num)
+double to_doublee(const string num)
 {
     if (is_double(num))
     {
@@ -86,7 +108,11 @@ double to_doublee(string num)
         double f = x + y;
         return f;
     }
-    return 0.0;
+    else{
+        throw "Division by zero condition!";
+    }
+    
+    // return 0.0;
 }
 
 map<char, int> number_dict()
