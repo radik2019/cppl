@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1666776852 source:/home/radik1981/Desktop/cpp/LearnC++/main.cpp
+	<iostream>
+	<ctime>
+	"utils.cpp"
+	"random_r.cpp"
+
+1666772301 /home/radik1981/Desktop/cpp/LearnC++/utils
+
+1666776810 /home/radik1981/Desktop/cpp/LearnC++/utils.cpp
+
+1666778382 /home/radik1981/Desktop/cpp/LearnC++/random_r.cpp
+
