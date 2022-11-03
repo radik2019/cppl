@@ -3,56 +3,94 @@
 #include <cmath>
 using namespace std;
 
-
-
 map<char, int> number_dict();
 
-bool is_int(string s){
+bool is_int(string s)
+{
     string symbols = "0123456789";
     bool flag;
-    for (int i = 0; i < s.length(); i++){
+    for (int i = 0; i < s.length(); i++)
+    {
         flag = false;
-        for (int k = 0; k < symbols.length(); k++){
-            if (s[i] == symbols[k]) flag = true;
+        for (int k = 0; k < symbols.length(); k++)
+        {
+            if (s[i] == symbols[k])
+                flag = true;
         }
-        if(!flag){
+        if (!flag)
+        {
             return false;
-        }  
+        }
     }
     return true;
-    
 }
 
-int to_int(string s){
-    if (is_int(s)){
+int to_int(string s)
+{
+    if (is_int(s))
+    {
         int num = 0;
         map<char, int> dict_int = number_dict();
-        for (int i = 0; i < s.length(); i++){
-            num += (dict_int[s[i]] * pow(10, (s.length()-i - 1)));
+        for (int i = 0; i < s.length(); i++)
+        {
+            num += (dict_int[s[i]] * pow(10, (s.length() - i - 1)));
         }
         return num;
     }
     return 0;
 }
 
-
-bool is_double(string s){
+bool is_double(string s)
+{
     string symbols = "0123456789.";
     bool flag;
-    for (int i = 0; i < s.length(); i++){
+    for (int i = 0; i < s.length(); i++)
+    {
         flag = false;
-        for (int k = 0; k < symbols.length(); k++){
-            if (s[i] == symbols[k]) flag = true;
+        for (int k = 0; k < symbols.length(); k++)
+        {
+            if (s[i] == symbols[k])
+                flag = true;
         }
-        if(!flag){
+        if (!flag)
+        {
             return false;
-        } 
+        }
     }
     return true;
 }
 
+double to_doublee(string num)
+{
+    if (is_double(num))
+    {
+        string integer = "";
+        string defis = "";
 
-map<char, int> number_dict(){
+        int count = num.find(".");
+
+        for (int i = count + 1; i < num.length(); i++)
+        {
+            defis += num[i];
+        }
+
+        for (int k = 0; k < count; k++)
+        {
+            integer += num[k];
+        }
+
+        double x;
+        double y;
+        x = to_int(integer) / 1;
+        y = to_int(defis) / (pow(10, defis.length()));
+        double f = x + y;
+        return f;
+    }
+    return 0.0;
+}
+
+map<char, int> number_dict()
+{
     map<char, int> dict_num;
     dict_num.insert(pair<char, int>('0', 0));
     dict_num.insert(pair<char, int>('1', 1));
@@ -66,4 +104,3 @@ map<char, int> number_dict(){
     dict_num.insert(pair<char, int>('9', 9));
     return dict_num;
 }
-
