@@ -9,6 +9,7 @@
 #include "utils.cpp"
 #include "random_r.cpp"
 #include "dynamicArray.cpp"
+#include "stringToInt.cpp"
 
 // А это уже содержимое заголовочного файла
 //int add(int x, int y); // прототип функции add() (не забывайте точку с запятой конце!)

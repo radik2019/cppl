@@ -3,30 +3,44 @@
 #include <iostream>
 #include <ctime>
 #include <string>
+#include <cmath>
+#include <map>
+
 using namespace std;
 #include "r_header.h"
 
 
+double to_double(string num){
+    string integer = 0;
+    string defis = 0;
+
+    // int count = num.find(".");
+
+    // for (int i = count+1; i < num.length(); i++){
+    //     cout << num[i];
+    //     // defis += num[i];
+    // }
+
+    // for (int k = 0; k < count; k++){
+    //     cout << num[k];
+    //     // integer += num[k];
+    // }
+    // print(integer);
+    // print(defis);
+    double f;
+    return f;
+}
+
 
 int main()
 {
-    int cols = 12;
-    int rows = 12;
-    int **arr = new int *[rows];
-    int *arr2 = new int[cols];
 
-    for (int i = 0; i < rows; i++){
-        arr[i] = new int[cols];
-    }
+    print("\n\n\n\n");
+    // to_double("3466.657");
+    string fg = "6567.3456";
+    to_double(fg);
 
-    for (int i = 0; i < rows; i++){
-        for (int k = 0; k < cols; k++){
-            arr[i][k] = rand() % 100;
-        }
-    }
-    print();
-    pushBack1(arr, arr2, cols, rows);
-    print(arr, rows, cols);
-    print();
+    print("\n\n\n\n");
     return 0;
+
 }
