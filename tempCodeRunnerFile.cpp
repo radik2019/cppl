@@ -1,2 +1,2 @@
-    // print(integer);
-    // print(defis);
+
+        cout <<"name:\t" << this->name << endl;

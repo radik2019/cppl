@@ -11,7 +11,8 @@ double to_doublee(string num);
 
 int check_floating_point(string num);
 
-int check_floating_point(string num){
+int check_floating_point(string num)
+{
     int count = 0;
     for (int i = 0; i < num.length(); i++)
     {
@@ -19,7 +20,6 @@ int check_floating_point(string num){
         {
             ++count;
         }
-        
     }
     return count;
 }
@@ -62,7 +62,8 @@ int to_int(string s)
 bool is_double(string s)
 {
     string symbols = "0123456789.";
-    if (check_floating_point(s) != 1){
+    if (check_floating_point(s) != 1)
+    {
         return false;
     }
     bool flag;
@@ -88,19 +89,15 @@ double to_doublee(const string num)
     {
         string integer = "";
         string defis = "";
-
         int count = num.find(".");
-
         for (int i = count + 1; i < num.length(); i++)
         {
             defis += num[i];
         }
-
         for (int k = 0; k < count; k++)
         {
             integer += num[k];
         }
-
         double x;
         double y;
         x = to_int(integer) / 1;
@@ -108,25 +105,20 @@ double to_doublee(const string num)
         double f = x + y;
         return f;
     }
-    else{
+    else
+    {
         throw "Division by zero condition!";
     }
-    
-    // return 0.0;
 }
+
 
 map<char, int> number_dict()
 {
+    string symbols = "0123456789.";
     map<char, int> dict_num;
-    dict_num.insert(pair<char, int>('0', 0));
-    dict_num.insert(pair<char, int>('1', 1));
-    dict_num.insert(pair<char, int>('2', 2));
-    dict_num.insert(pair<char, int>('3', 3));
-    dict_num.insert(pair<char, int>('4', 4));
-    dict_num.insert(pair<char, int>('5', 5));
-    dict_num.insert(pair<char, int>('6', 6));
-    dict_num.insert(pair<char, int>('7', 7));
-    dict_num.insert(pair<char, int>('8', 8));
-    dict_num.insert(pair<char, int>('9', 9));
+    for (int i = 0; i < symbols.length(); i++)
+    {
+        dict_num.insert(pair<char, int>(symbols[i], i));
+    }
     return dict_num;
 }
