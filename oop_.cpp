@@ -197,8 +197,8 @@ public:
 void work_of_Point(Point &object)
 // friend function
 {
-    object.x = object.x + object.y
-    print(object.x)
+    object.x = object.x + object.y;
+    print(object.x);
 }
 
 void work_of_ListR()
