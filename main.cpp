@@ -20,12 +20,17 @@ void foo(int* value){
 }
 
 int main () {
-    int s = 1;
-    int *ps = &s;
-    foo(s);
-    cout << s <<  "\n\nhello world\n\n\n";
+    string name, name2;
+    cout << "inserire il numero: ";
+    cin >> name2 ;
+    // cin.ignore(32767, '\n');
 
+    cout << "Come ti chiami?: ";
+    getline(cin, name);
+    cout << "tu ti chiami: " << name << "!" << endl;
+    
     return 0;
+    
 }
 
 
