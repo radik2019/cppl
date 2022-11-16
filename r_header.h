@@ -3,7 +3,14 @@
 #ifndef R_HEADER
 #define R_HEADER
 // #define PRINT_JOE "Alex"
-
+#include <iostream>
+#include <ctime>
+#include <string>
+#include <cmath>
+#include <map>
+#include <exception>
+#include <fstream>
+using namespace std;
 
 #include "print_r.cpp"
 #include "utils.cpp"

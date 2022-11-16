@@ -1,5 +1,4 @@
 
-
 #include <iostream>
 #include <ctime>
 #include <string>
@@ -11,15 +10,18 @@ using namespace std;
 #include "r_header.h"
 
 
-int my_rand(int){
-    return (82039 * 24543) % 100;
-}
-
-int main () {
-    cout << my_rand(43) << endl;
-    return 0;
+void foo(){
     
 }
 
 
+
+int main () {
+    auto df = 345; // In automatico diventa un 'int'
+    auto jh = 23.75; // In automatico diventa un double
+    print("''''''''''''''''");
+    exit(33);
+    return 0;
+    
+}
 
