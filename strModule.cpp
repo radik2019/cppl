@@ -1,7 +1,6 @@
 #include <vector>
 #include "r_header.h"
 
-
 class NumberManager
 {
 private:
@@ -9,6 +8,7 @@ private:
     int len;
     map<char, int> dict_num;
     string symbols = "0123456789.";
+
 public:
     NumberManager(string numberString);
     ~NumberManager();
@@ -150,7 +150,33 @@ private:
 
 public:
     StringR(string s);
+    StringR();
     ~StringR();
+
+    char operator[](int index)
+    {
+        return this->s[index];
+    }
+
+    void operator=(string new_string)
+    {
+        this->s = new_string;
+    }
+
+    string operator*(int n)
+    {
+        string temp;
+        for (int i = 0; i < n; i++)
+        {
+            temp += this->s;
+        }
+        return temp;
+    }
+
+    string getS()
+    {
+        return this->s;
+    }
 
     vector<int> extractDigits()
     {
@@ -175,31 +201,38 @@ public:
         }
         return lst;
     }
-
 };
+
+StringR::StringR()
+{
+    this->s = "";
+    this->len = 0;
+}
 
 StringR::StringR(string s)
 {
     this->s = s;
     this->len = s.length();
 }
+
 StringR::~StringR()
 {
 }
 
-void test(){
-    NumberManager df("2.34.12");
-    cout << "to double '2a34.12' " <<  NumberManager("234.12").to_doublee() << endl;
-    cout << "to int '6484.34'  " << NumberManager("6484").to_int() << endl;
-    cout << "NumberManager(\"2.34.12\").check_floating_point   "<< df.check_floating_point() << endl;
-    print(StringR("43, 656df2345__78-- 23").extractDigits());
-    StringR sd("dfdfdf");
-    sd.~StringR();
+void test()
+{
+
+    StringR sd;
+    sd = "1234";
+
+    string temp = sd * 10;
+    print(sd[1]);
 }
 
 int main()
 {
     test();
+    cerr << "hello";
 
     // cout << to_string(2.34)+"dfg" << endl;
     return 0;
