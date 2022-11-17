@@ -1,23 +1,24 @@
 #include <vector>
 #include "r_header.h"
 
-class StringR
+
+class NumberManager
 {
 private:
-    string s;
+    string numberString;
     int len;
-
+    map<char, int> dict_num;
+    string symbols = "0123456789.";
 public:
-    StringR(string s);
-    ~StringR();
+    NumberManager(string numberString);
+    ~NumberManager();
 
-    static int check_floating_point(string s)
+    int check_floating_point()
     {
-        /*Check  and return integer count of floating points*/
         int count = 0;
-        for (int i = 0; i < s.length(); i++)
+        for (int i = 0; i < this->numberString.length(); i++)
         {
-            if (s[i] == '.')
+            if (this->numberString[i] == '.')
             {
                 ++count;
             }
@@ -25,16 +26,16 @@ public:
         return count;
     }
 
-    static bool is_int(string s)
+    bool is_int()
     {
         string symbols = "0123456789";
         bool flag;
-        for (int i = 0; i < s.length(); i++)
+        for (int i = 0; i < this->len; i++)
         {
             flag = false;
             for (int k = 0; k < symbols.length(); k++)
             {
-                if (s[i] == symbols[k])
+                if (this->numberString[i] == symbols[k])
                     flag = true;
             }
             if (!flag)
@@ -45,35 +46,35 @@ public:
         return true;
     }
 
-    static int to_int(string s)
+    int to_int()
     {
-        if (is_int(s))
+        if (this->is_int())
         {
             int num = 0;
             map<char, int> dict_int = number_dict();
-            for (int i = 0; i < s.length(); i++)
+            for (int i = 0; i < this->numberString.length(); i++)
             {
-                num += (dict_int[s[i]] * pow(10, (s.length() - i - 1)));
+                num += (dict_int[this->numberString[i]] * pow(10, (this->numberString.length() - i - 1)));
             }
             return num;
         }
         return 0;
     }
 
-    static bool is_double(string s)
+    bool is_double()
     {
         string symbols = "0123456789.";
-        if (check_floating_point(s) != 1)
+        if (this->check_floating_point() != 1)
         {
             return false;
         }
         bool flag;
-        for (int i = 0; i < s.length(); i++)
+        for (int i = 0; i < this->len; i++)
         {
             flag = false;
             for (int k = 0; k < symbols.length(); k++)
             {
-                if (s[i] == symbols[k])
+                if (this->numberString[i] == symbols[k])
                     flag = true;
             }
             if (!flag)
@@ -84,25 +85,25 @@ public:
         return true;
     }
 
-    static double to_doublee(string s)
+    double to_doublee()
     {
-        if (is_double(s))
+        if (this->is_double())
         {
             string integer = "";
             string defis = "";
-            int count = s.find(".");
-            for (int i = count + 1; i < s.length(); i++)
+            int count = this->numberString.find(".");
+            for (int i = count + 1; i < this->numberString.length(); i++)
             {
-                defis += s[i];
+                defis += this->numberString[i];
             }
             for (int k = 0; k < count; k++)
             {
-                integer += s[k];
+                integer += this->numberString[k];
             }
             double x;
             double y;
-            x = to_int(integer) / 1;
-            y = to_int(defis) / (pow(10, defis.length()));
+            x = NumberManager(integer).to_int();
+            y = NumberManager(defis).to_int() / (pow(10, defis.length()));
             double f = x + y;
             return f;
         }
@@ -111,6 +112,28 @@ public:
             throw "Division by zero condition!";
         }
     }
+};
+
+NumberManager::NumberManager(string numberString)
+{
+    this->numberString = numberString;
+    this->len = this->numberString.length();
+
+    for (int i = 0; i < this->symbols.length(); i++)
+    {
+        this->dict_num.insert(pair<char, int>(this->symbols[i], i));
+    }
+}
+
+NumberManager::~NumberManager()
+{
+}
+
+class StringR
+{
+private:
+    string s;
+    int len;
 
     static bool isDigit(char symbol)
     {
@@ -125,6 +148,10 @@ public:
         return false;
     }
 
+public:
+    StringR(string s);
+    ~StringR();
+
     vector<int> extractDigits()
     {
         /*Extract digits from string and return a vector of integers*/
@@ -138,13 +165,13 @@ public:
             }
             else if (temp != "")
             {
-                lst.push_back(to_int(temp));
+                lst.push_back(NumberManager(temp).to_int());
                 temp = "";
             }
         }
         if (temp != "")
         {
-            lst.push_back(to_int(temp));
+            lst.push_back(NumberManager(temp).to_int());
         }
         return lst;
     }
@@ -161,16 +188,19 @@ StringR::~StringR()
 }
 
 void test(){
-    StringR mystring("23.4");
-    cout << "\n\StringR mystring(\"23.4\")\n";
-    cout <<  "StringR::check_floating_point(\"234234.234534\") =   " <<StringR::check_floating_point("234234.234534") << endl;
-
-
-
+    NumberManager df("2.34.12");
+    cout << "to double '2a34.12' " <<  NumberManager("234.12").to_doublee() << endl;
+    cout << "to int '6484.34'  " << NumberManager("6484").to_int() << endl;
+    cout << "NumberManager(\"2.34.12\").check_floating_point   "<< df.check_floating_point() << endl;
+    print(StringR("43, 656df2345__78-- 23").extractDigits());
+    StringR sd("dfdfdf");
+    sd.~StringR();
 }
 
 int main()
 {
     test();
+
+    // cout << to_string(2.34)+"dfg" << endl;
     return 0;
 }
