@@ -1,13 +1,4 @@
 
-
-#include <iostream>
-#include <ctime>
-#include <string>
-#include <cmath>
-#include <map>
-#include <exception>
-#include <fstream>
-using namespace std;
 #include "r_header.h"
 
 class ListR
