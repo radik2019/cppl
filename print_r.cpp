@@ -65,5 +65,12 @@ void print(T *&arr, int &col, int &row)
     cout << "]\n";
 }
 
-
-
+template <class T>
+void print(vector<T> arr){
+    int len = arr.size();
+    cout << "[";
+    for (int i = 0; i < (len - 1); i++){
+        cout << arr[i] << ", ";
+    }
+    cout << arr[len - 1] << "]\n";
+}
