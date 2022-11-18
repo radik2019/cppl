@@ -6,6 +6,7 @@ private:
     int age;
     string name;
     string gender;
+
 public:
     DelegConstr();
     DelegConstr(int age);
@@ -13,13 +14,13 @@ public:
     DelegConstr(int age, string name, string gender);
     ~DelegConstr();
 
-    void info(){
+    void info()
+    {
         cout << "\n\nAge:  \t" << this->age << endl;
         cout << "Name:  \t" << this->name << endl;
         cout << "Gender:\t" << this->gender << "\n\n";
     }
 };
-
 
 DelegConstr::DelegConstr()
 {
@@ -28,42 +29,35 @@ DelegConstr::DelegConstr()
     this->gender = "noGender";
 }
 
-DelegConstr::DelegConstr(int age)
+DelegConstr::DelegConstr(int age) : DelegConstr()
 {
     this->age = age;
-    this->name = "noName";
-    this->gender = "noGender";
 }
 
-DelegConstr::DelegConstr(int age, string name): DelegConstr(age)
+DelegConstr::DelegConstr(int age, string name) : DelegConstr(age)
 {
     this->name = name;
-    this->gender = "noGender";
 }
 
-DelegConstr::DelegConstr(int age, string name, string gender): DelegConstr(age, name)
+DelegConstr::DelegConstr(int age, string name, string gender) : DelegConstr(age, name)
 {
     this->gender = gender;
 }
 
+DelegConstr::~DelegConstr()
+{
+}
 
-// DelegConstr::~DelegConstr()
-// {
-// }
-
-
-
-int main(){
+int main()
+{
+    DelegConstr df3;
     DelegConstr df(23);
     DelegConstr df1(23, "Mark");
     DelegConstr df2(23, "Ivan", "Male");
-    DelegConstr df3;
 
+    df3.info();
     df.info();
     df1.info();
     df2.info();
-    df3.info();
-    
-
     return 0;
 }
