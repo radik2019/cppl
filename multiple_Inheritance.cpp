@@ -16,7 +16,9 @@ public:
         cout << "\nCar destructor\n";
     }
     int getSpeed()
+
     {
+        cout << "\ngetSpeed from Car\n\n";
         return this->car_speed;
     }
 };
@@ -37,7 +39,8 @@ public:
     }
     int getSpeed()
     {
-        return this->plane_speed - 423;
+        cout << "\ngetSpeed from Plane\n";
+        return this->plane_speed;
     }
 };
 
@@ -65,7 +68,9 @@ public:
 int main()
 {
     CarPlane crpl(23, 34, 567);
-    crpl.info();
+    // crpl.info();
+    (Plane(crpl)).getSpeed();
+
 
     return 0;
 }
