@@ -10,6 +10,7 @@
 #include <map>
 #include <exception>
 #include <fstream>
+#include <vector>
 using namespace std;
 
 #include "print_r.cpp"
