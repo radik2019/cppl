@@ -1,9 +1,12 @@
 
-
+#include <fstream>
 #include "r_header.h"
 
-int main () {
+
+
+int main()
+{
+    fstreamLesson(1);
 
     return 0;
 }
-
