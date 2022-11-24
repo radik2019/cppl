@@ -4,6 +4,8 @@
 !.gitignore
 !*.cpp
 !*.h
+!fileHandler/
+!fileHandler/*.cpp
 tempCodeRunnerFile.cpp
 
 
