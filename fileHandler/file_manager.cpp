@@ -149,7 +149,7 @@ void fstreamLesson(string path = "___TEST.txt", bool is_read_mode=true)
         else
         {
             cout << "Read mode\n\n";
-            while (!fileManager.eof())
+            while (!fileManager.eof()) // 'object.eof()' ritorna true se e` la fine del file
             {
                 fileManager >> temp_message;
                 cout << "  =  " << temp_message << endl;
@@ -164,7 +164,7 @@ void fstreamLesson(string path = "___TEST.txt", bool is_read_mode=true)
     }
 }
 
-
+/*
 int main()
 {
     // Point pt(2, 3);
@@ -202,3 +202,5 @@ int main()
 
     return 0;
 }
+*/
+
