@@ -23,11 +23,22 @@ public:
         cout << "x:  " << this->x << endl;
         cout << "y:  " << this->y << endl;
     }
+    string str_info()
+    {   string temp;
+        temp = "x:  " + to_string(this->x) +"\ny:  " + to_string(this->y) + "\n";
+        return temp;
+    }
     void changeData(int x, int y)
     {
         this->x = x;
         this->y = y;
     }
+    int getX(){return this->x;}
+    int getY(){return this->y;}
+    void setX(int x){this->x = x;}
+    void setY(int y){this->y = y;}
+    friend ostream &operator<<(ostream &fs ,Point &obj);
+    friend istream &operator>>(istream &fs ,Point &obj);
     
 };
 
@@ -46,6 +57,63 @@ Point::Point(int x, int y)
 Point::~Point()
 {
 }
+
+
+//////////////////////////////////////////////////////////
+/////////// OVERRIDING OPERATOR  "<<" AND ">>"////////////
+//////////////////////////////////////////////////////////
+
+
+ostream &operator<<(ostream &fs ,Point &obj)
+{
+    cout << "   Operator: <<  \n";
+    fs << obj.getX() << " "<< obj.getY() << "\n";
+    return fs;
+}
+
+istream &operator>>(istream &fs ,Point &obj)
+{
+    fs >> obj.x >> obj.y;
+    cout << "   Operator: >>  \n";
+    return fs;
+}
+
+int test_operator()
+{
+    // fstreamLesson();
+    Point pt(945, 463);
+    fstream fs;
+    
+    fs.open("___FSTREAM_OBJ.txt", fstream::in | fstream::out | fstream::app);
+    cout << "{  \nFile is opened!\n";
+    fs << pt;
+    cout << "   The data was writing successfully\n";
+    fs.close();
+    cout << "File is closed!\n}\n";
+
+    
+    fs.open("___FSTREAM_OBJ.txt", fstream::in | fstream::out | fstream::app);
+    Point pt2;
+    cout << pt2;
+    fs >> pt2;
+    pt2.info();
+    fs.close();
+    cout << pt2 << endl;
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 void writeDataToFile(const string file, string data)
 {
@@ -86,7 +154,8 @@ string read(string file)
     return "";
 }
 
-bool writeObjectToFile(const string path, Point &pt ){
+bool writeObjectToFile(const string path, Point &pt)
+{
 
     ofstream wr_file;
 
@@ -107,7 +176,8 @@ bool writeObjectToFile(const string path, Point &pt ){
     return false;
 }
 
-vector<Point> readObjectToFile(const string path){
+vector<Point> readObjectToFile(const string path)
+{
     ifstream r_file;
     vector<Point> lst;
 
@@ -120,11 +190,11 @@ vector<Point> readObjectToFile(const string path){
     Point pt;
     if (r_file.is_open())
     {
-        //r_file.read((char *)&pt, sizeof(Point)) // il metodo ritorna un bool
-        // se c'e` un dato nelliterazione, ritorna true
-        // altrimenti ritorna false
+        // r_file.read((char *)&pt, sizeof(Point)) // il metodo ritorna un bool
+        //  se c'e` un dato nelliterazione, ritorna true
+        //  altrimenti ritorna false
         while (r_file.read((char *)&pt, sizeof(Point)))
-        {   
+        {
             lst.push_back(pt);
         }
         return lst;
@@ -132,12 +202,12 @@ vector<Point> readObjectToFile(const string path){
     return lst;
 }
 
-void fstreamLesson(string path = "___TEST.txt", bool is_read_mode=true)
+void fstreamLesson(string path = "___TEST.txt", bool is_read_mode = true)
 {
-    string  messages, temp_message;
+    string messages, temp_message;
     fstream fileManager;
     fileManager.open(path, fstream::in | fstream::out | fstream::app);
-    
+
     if (fileManager.is_open())
     {
         if (!is_read_mode)
@@ -203,4 +273,3 @@ int main()
     return 0;
 }
 */
-
