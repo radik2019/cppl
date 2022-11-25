@@ -39,6 +39,7 @@ public:
     void setY(int y){this->y = y;}
     friend ostream &operator<<(ostream &fs ,Point &obj);
     friend istream &operator>>(istream &fs ,Point &obj);
+    friend istream &operator>>(istream &fs , vector<Point> &obj);
     
 };
 
@@ -67,7 +68,7 @@ Point::~Point()
 ostream &operator<<(ostream &fs ,Point &obj)
 {
     cout << "   Operator: <<  \n";
-    fs << obj.getX() << " "<< obj.getY() << "\n";
+    fs  << obj.getX() << " "<< obj.getY() << endl;
     return fs;
 }
 
@@ -78,27 +79,60 @@ istream &operator>>(istream &fs ,Point &obj)
     return fs;
 }
 
+
+// TODO   
+istream &operator>>(istream &fs , vector<Point> &obj)
+{
+    Point object;
+    string temp;
+    while (fs >> object.x >> object.y)
+    {
+        // cout << fs.eof() << temp << endl;
+
+        // fs >> object.x >> object.y;
+        obj.push_back(object);
+    }
+    cout << " ---  " << fs.eof();
+    cout << "   Operator: >> Point \n";
+    return fs;
+}
+
 int test_operator()
 {
     // fstreamLesson();
-    Point pt(945, 463);
-    fstream fs;
+    Point pt(432, 860);
+    fstream fs2;
     
-    fs.open("___FSTREAM_OBJ.txt", fstream::in | fstream::out | fstream::app);
+    fs2.open("___FSTREAM_OBJ.txt", fstream::in | fstream::out | fstream::app);
     cout << "{  \nFile is opened!\n";
-    fs << pt;
+    fs2 << pt << endl;
     cout << "   The data was writing successfully\n";
-    fs.close();
+    fs2.close();
     cout << "File is closed!\n}\n";
 
     
+    // fs.open("___FSTREAM_OBJ.txt", fstream::in | fstream::out | fstream::app);
+    // Point pt2;
+    // cout << pt2;
+    // fs >> pt2;
+    // pt2.info();
+    // fs.close();
+    // cout << pt2 << endl;
+
+//////////////////////////////////////////////////////////
+
+    fstream fs;
+    vector <Point> lst;
     fs.open("___FSTREAM_OBJ.txt", fstream::in | fstream::out | fstream::app);
-    Point pt2;
-    cout << pt2;
-    fs >> pt2;
-    pt2.info();
+
+    fs >> lst;
     fs.close();
-    cout << pt2 << endl;
+    for (auto value: lst){
+        value.info();
+        // cout << value.str_info();
+        cout << "-      -      -      -\n";
+    }
+    cout << lst[0] << endl;
 
     return 0;
 }
