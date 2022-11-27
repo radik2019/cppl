@@ -2,6 +2,57 @@
 #include <fstream>
 #include <exception>
 
+class ExceptionR : public exception
+{
+private:
+    string _msg;
+    int dataState;
+
+public:
+    ExceptionR(const string &msg, int dataState) : _msg(msg)
+    {
+        this->dataState = dataState;
+        cout << "Exceptionr:" << endl;
+    }
+
+    virtual const char *what() const noexcept override
+    {
+        return _msg.c_str();
+    }
+    
+    int getDataState()
+    {
+        return this->dataState;
+    }
+};
+
+int division(int x, int y)
+{
+    if (x > y)
+    {
+        throw ExceptionR("Error:   x > y\n\n", 2);
+    }
+    else if ((x == 0) && (y == 0))
+    {
+        throw ExceptionR("\n  Error:   x = 0;  y = 0\n\n", 34);
+    }
+    return x * y;
+}
+
+void test3()
+{
+    try
+    {
+        cout << "\n\n" << division(0, 0) << "\n\n";
+    }
+    catch (const ExceptionR &er)
+    {
+        std::cerr << er.what() << '\n';
+        
+        // cout << e.getDataState() << "\n\n";
+    }
+}
+
 void year_of_birth(int num)
 {
     if (num > 2020)
@@ -13,7 +64,7 @@ void year_of_birth(int num)
         throw "troppo piccolo il numero";
     }
     if (num < 0)
-    {   
+    {
         exception e;
         throw e;
     }
@@ -40,13 +91,14 @@ void test2()
         std::cerr << "\n\n"
                   << e << '\n';
     }
-    catch (const exception &e){
+    catch (const exception &e)
+    {
         cerr << "Exceptions:     " << e.what() << endl;
     }
-    catch ( ...){
-        cerr << "Other Exceptions!!!!!:     "  << endl;
+    catch (...)
+    {
+        cerr << "Other Exceptions!!!!!:     " << endl;
     }
-
 }
 
 void test()
