@@ -6,7 +6,7 @@
 template <typename T>
 class TestClass
 {
-private:
+protected:
     T value;
     string typeValue;
     string v_str = "St6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EE";
@@ -60,10 +60,58 @@ public:
     }
 };
 
+template <>
+class TestClass<bool>
+{
+    /*tipa perezagruzka classa no tolko dlja bool*/
+protected:
+    bool value;
+    string typeValue;
 
+public:
+    TestClass(bool value)
+    {
+        this->value = value;
+    }
+    void getInfo()
+    {
+        string s = typeid(this->value).name();
+        this->typeValue = "Bool";
+        cout << "\n======        BOOL      ======\n";
+        cout << "value:\t" << sizeof(value) << "\n";
+        cout << "type: \t" << this->typeValue << "\n";
+    }
+};
 
-void test(){
-        vector<int> vct;
+class ChildClass : public TestClass<int>
+{
+public:
+    ChildClass(int data) : TestClass(data)
+    {
+        cout << "ChildClass2 is created\n\n";
+    }
+};
+
+template <typename T>
+class Ch : public TestClass<T>
+{
+public:
+    Ch(T value) : TestClass<T>(value)
+    {
+        cout << "Ch is created\n\n";
+    }
+};
+
+void test2()
+{
+    bool s = 1;
+    Ch<int> df(78);
+    df.getInfo();
+}
+
+void test()
+{
+    vector<int> vct;
     TestClass<vector<int>> n(vct);
     n.getInfo();
     cout << "\n\n";
@@ -80,7 +128,6 @@ void test(){
 int main()
 {
 
-    test();
+    test2();
     return 0;
 }
-
