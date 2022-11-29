@@ -14,6 +14,10 @@
 !namespaceR/
 !namespaceR/*.cpp
 
+
+!smart_Pointer/
+!smart_Pointer/*.cpp
+
 tempCodeRunnerFile.cpp
 main.cpp
 
