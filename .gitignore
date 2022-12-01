@@ -18,6 +18,9 @@
 !smart_Pointer/
 !smart_Pointer/*.cpp
 
+!forwardListR/
+!forwardListR/*.cpp
+
 tempCodeRunnerFile.cpp
 main.cpp
 
