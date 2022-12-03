@@ -7,8 +7,6 @@ private:
     template <typename T1>
     class Node
     {
-    private:
-        /* data */
     public:
         Node *pnext;
         T1 data;
@@ -17,14 +15,10 @@ private:
             this->data = data;
             this->pnext = pNext;
         }
-        ~Node()
-        {
-        }
     };
-
+    int Size;
 public:
     Node<T> *head;
-    int Size;
 
     void pushBack(T data)
     {
@@ -65,22 +59,27 @@ public:
         return current->data;
     }
 
-    void print(){
-        // TODO 
-    }
+    void print();
 
     List(/* args */);
-    ~List();
 };
+
 template <typename T>
-List<T>::List(/* args */)
+List<T>::List()
 {
-    Size = 0;
-    head = nullptr;
+    this->Size = 0;
+    this->head = nullptr;
 }
-template <typename T>
-List<T>::~List()
-{
+
+template<class T> void List<T>::print(){
+    Node<T> *current = this->head;
+    cout << "[";
+    while (current->pnext !=nullptr)
+    {
+        cout << current->data << ", ";
+        current = current->pnext;
+    }
+    cout << current->data<< "]\n";
 }
 
 int main()
@@ -89,17 +88,11 @@ int main()
     lst.pushBack(5);
     lst.pushBack(6);
     lst.pushBack(87);
+    lst.print();
     lst.pushBack(12);
     lst.pushBack(619);
     lst.pushBack(91);
-    lst.print();
-    cout << "[";
-    for (int i = 0; i < lst.getSize() - 1; i++)
-    {
-        cout << lst[i] << ", ";
-    }
-    
-    cout << lst[lst.getSize()-1]<< "]\n";   
+    lst.print(); 
     
     return 0;
 }
