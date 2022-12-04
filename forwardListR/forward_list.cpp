@@ -63,8 +63,23 @@ public:
     void print();
 
     List(/* args */);
+    ~List(/* args */){
+        cout << "Deleted NOde!\n";
+    }
 
-    // TOFIX
+    
+    int pop_front()
+    {
+        
+        int n = this->head->data;
+        Node<T> *temp = this->head;
+        this->head = this->head->pnext;
+        delete temp;
+        
+        return n;
+    }
+
+
     int pop()
     {
         int index = this->Size - 1;
@@ -111,7 +126,9 @@ public:
                     if (count == (index - 1))
                     {
                         n = current->pnext->data;
-                        current->pnext = current->pnext->pnext;
+                        Node<T> *temp = current->pnext;         // si crea il puntatore del nodo da cui ci sganciamo
+                        current->pnext = current->pnext->pnext; // si campbia il puntatore del prossimo nodo
+                        delete temp;                            // si cancella il nodo rimasto senza collegamento
                         --this->Size;
                         return n;
                     }
@@ -160,12 +177,14 @@ int main()
     lst.pushBack(1946);
     cout << lst.getSize() << endl;
     lst.print();
-    cout << lst.pop(0) << "\n\n";
-    cout << lst.pop() << "\n\n";
-    cout << lst.pop(3) << "\n\n";
-    cout << lst.pop() << "\n\n";
+    // cout << lst.pop(0) << "\n\n";
+    // cout << lst.pop() << "\n\n";
+    // cout << lst.pop(3) << "\n\n";
+    // cout << lst.pop() << "\n\n";
     // cout << lst.pop(1) << "\n\n";
-    // cout << lst.pop(2) << "\n\n";
+    cout << "  **** " << lst.pop_front() << "\n";
+    cout << "  **** " << lst.pop_front() << "\n";
+    cout << "  **** " << lst.pop_front() << "\n";
     // lst.pop(2);
     lst.print();
 
