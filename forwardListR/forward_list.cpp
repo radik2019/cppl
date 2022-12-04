@@ -15,6 +15,10 @@ private:
             this->data = data;
             this->pnext = pNext;
         }
+        ~Node()
+        {
+            cout << "delete Node: " << this->data << "\n";
+        }
     };
     int Size;
 
@@ -62,23 +66,62 @@ public:
 
     void print();
 
-    List(/* args */);
-    ~List(/* args */){
-        cout << "Deleted NOde!\n";
+    List();
+
+    void insert(const int index, T data)
+    {
+        if (index == 0)
+        {
+            Node<T> *temp = new Node(data, this->head);
+            this->head = temp;
+            return;
+        }
+        else
+        {
+            if (index > this->Size)
+            {
+                throw "Index out of range!\n";
+            }
+            int count = 1; //perche` il primo (0) e` head
+            Node<T> *object = this->head;
+            while (true)
+            {
+                if (count == index)
+                {
+                    Node<T> *temp = new Node(data, object->pnext);
+                    object->pnext = temp;
+                    ++this->Size;
+                    return;
+                }
+                ++count;
+                object = object->pnext;
+            }
+        }
     }
 
-    
+    void clear()
+    {
+        while (this->Size)
+        {
+
+            Node<T> *temp = this->head;
+            this->head = this->head->pnext;
+            delete temp;
+            --this->Size;
+        }
+    }
+
     int pop_front()
     {
-        
+
         int n = this->head->data;
         Node<T> *temp = this->head;
         this->head = this->head->pnext;
         delete temp;
-        
+        --this->Size;
+
         return n;
     }
-
 
     int pop()
     {
@@ -139,6 +182,11 @@ public:
             }
         }
     }
+
+    bool is_empty()
+    {
+        return (this->head == nullptr);
+    }
 };
 
 template <typename T>
@@ -151,6 +199,11 @@ List<T>::List()
 template <class T>
 void List<T>::print()
 {
+    if (!this->Size)
+    {
+        cout << "[]\n";
+        return;
+    }
     Node<T> *current = this->head;
     cout << "[";
     while (current->pnext != nullptr)
@@ -161,7 +214,7 @@ void List<T>::print()
     cout << current->data << "]\n";
 }
 
-int main()
+void test()
 {
     List<int> lst;
     lst.pushBack(5);
@@ -185,8 +238,62 @@ int main()
     cout << "  **** " << lst.pop_front() << "\n";
     cout << "  **** " << lst.pop_front() << "\n";
     cout << "  **** " << lst.pop_front() << "\n";
+    lst.print();
+    lst.clear();
     // lst.pop(2);
     lst.print();
+}
+
+void test_clear()
+{
+    List<int> lst;
+    lst.clear();
+    lst.pushBack(619);
+    lst.clear();
+}
+
+void test_insert()
+{
+    List<int> lst;
+    lst.pushBack(5);
+    lst.pushBack(6);
+    lst.pushBack(5);
+    lst.pushBack(8);
+    lst.pushBack(24);
+    lst.pushBack(54);
+    lst.pushBack(15);
+    lst.pushBack(87);
+    lst.pushBack(92);
+    lst.pushBack(61);
+    lst.print();
+    for (int i = 0; i < 12; i++)
+    {
+        cout << "\n\n===================== "<< i <<" ===================\n";
+        try
+        {
+            lst.insert(i, 4444);
+            lst.print();
+            lst.pop(i);
+            lst.print();
+        }
+        catch(const char *e)
+        {
+            std::cerr << e << '\n';
+        }
+    }
+}
+
+void test_is_empty()
+{
+    List<int> lst;
+    cout << "is empty?  " << lst.is_empty() << endl;
+    lst.pushBack(619);
+    cout << "is empty?  " << lst.is_empty() << endl;
+}
+
+int main()
+{
+    test_insert();
 
     return 0;
 }
