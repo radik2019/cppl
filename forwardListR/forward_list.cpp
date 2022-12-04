@@ -23,6 +23,7 @@ private:
     int Size;
 
 public:
+    List();
     Node<T> *head;
 
     void pushBack(T data)
@@ -48,6 +49,38 @@ public:
         return this->Size;
     }
 
+
+
+
+
+
+    List *operator+(const List &obj){
+        List<T> *temp = new List<T>;
+        Node<T> *current = this->head;
+        Node<T> *temp_obj = obj.head;
+        while (current->pnext != nullptr)
+        {
+            temp->pushBack(current->data);
+            current = current->pnext;
+        }
+        temp->pushBack(current->data);
+
+        while (temp_obj->pnext != nullptr)
+        {
+            temp->pushBack(temp_obj->data);
+            temp_obj = temp_obj->pnext;
+        }
+        temp->pushBack(temp_obj->data);
+        return temp;
+    }
+
+
+
+
+
+
+
+
     T &operator[](const int index)
     {
         int counter = 0;
@@ -66,8 +99,6 @@ public:
 
     void print();
 
-    List();
-
     void insert(const int index, T data)
     {
         if (index == 0)
@@ -82,7 +113,7 @@ public:
             {
                 throw "Index out of range!\n";
             }
-            int count = 1; //perche` il primo (0) e` head
+            int count = 1; // perche` il primo (0) e` head
             Node<T> *object = this->head;
             while (true)
             {
@@ -268,7 +299,7 @@ void test_insert()
     lst.print();
     for (int i = 0; i < 12; i++)
     {
-        cout << "\n\n===================== "<< i <<" ===================\n";
+        cout << "\n\n===================== " << i << " ===================\n";
         try
         {
             lst.insert(i, 4444);
@@ -276,7 +307,7 @@ void test_insert()
             lst.pop(i);
             lst.print();
         }
-        catch(const char *e)
+        catch (const char *e)
         {
             std::cerr << e << '\n';
         }
@@ -291,9 +322,24 @@ void test_is_empty()
     cout << "is empty?  " << lst.is_empty() << endl;
 }
 
+void test_operator_plus(){
+    List<int> lst;
+    List<int> lst2;
+    lst.pushBack(4);
+    lst.pushBack(4);
+    lst.pushBack(4);
+    lst.pushBack(10);
+    lst2.pushBack(1);
+    lst2.pushBack(1);
+    lst2.pushBack(1);
+    lst2.pushBack(2);
+    List<int> *lst3 = lst+lst2;
+    lst3->print();
+}
+
 int main()
 {
-    test_insert();
+    test_operator_plus();
 
     return 0;
 }
