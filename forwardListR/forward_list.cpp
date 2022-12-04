@@ -17,6 +17,7 @@ private:
         }
     };
     int Size;
+
 public:
     Node<T> *head;
 
@@ -62,6 +63,65 @@ public:
     void print();
 
     List(/* args */);
+
+    // TOFIX
+    int pop()
+    {
+        int index = this->Size - 1;
+
+        Node<T> *current = this->head;
+        int n;
+        int count = 0;
+        while (current->pnext != nullptr)
+        {
+            if (current->pnext->pnext == nullptr)
+            {
+                n = current->pnext->data;
+                current->pnext = nullptr;
+                --this->Size;
+                return n;
+            }
+            current = current->pnext;
+            ++count;
+        }
+        return n;
+    }
+
+    int pop(int index)
+    {
+        if (index >= this->Size)
+        {
+            throw("Index out of range\n\n");
+        }
+        else
+        {
+            Node<T> *current = this->head;
+            int n;
+            int count = 0;
+            if (index == 0)
+            {
+                n = this->head->data;
+                this->head = this->head->pnext;
+                return n;
+            }
+            else
+            {
+                while (current->pnext != nullptr)
+                {
+                    if (count == (index - 1))
+                    {
+                        n = current->pnext->data;
+                        current->pnext = current->pnext->pnext;
+                        --this->Size;
+                        return n;
+                    }
+                    current = current->pnext;
+                    ++count;
+                }
+                return n;
+            }
+        }
+    }
 };
 
 template <typename T>
@@ -71,15 +131,17 @@ List<T>::List()
     this->head = nullptr;
 }
 
-template<class T> void List<T>::print(){
+template <class T>
+void List<T>::print()
+{
     Node<T> *current = this->head;
     cout << "[";
-    while (current->pnext !=nullptr)
+    while (current->pnext != nullptr)
     {
         cout << current->data << ", ";
         current = current->pnext;
     }
-    cout << current->data<< "]\n";
+    cout << current->data << "]\n";
 }
 
 int main()
@@ -87,12 +149,25 @@ int main()
     List<int> lst;
     lst.pushBack(5);
     lst.pushBack(6);
+    lst.pushBack(5);
+    lst.pushBack(8);
+    lst.pushBack(24);
+    lst.pushBack(54);
+    lst.pushBack(15);
     lst.pushBack(87);
-    lst.print();
-    lst.pushBack(12);
+    lst.pushBack(92);
     lst.pushBack(619);
-    lst.pushBack(91);
-    lst.print(); 
-    
+    lst.pushBack(1946);
+    cout << lst.getSize() << endl;
+    lst.print();
+    cout << lst.pop(0) << "\n\n";
+    cout << lst.pop() << "\n\n";
+    cout << lst.pop(3) << "\n\n";
+    cout << lst.pop() << "\n\n";
+    // cout << lst.pop(1) << "\n\n";
+    // cout << lst.pop(2) << "\n\n";
+    // lst.pop(2);
+    lst.print();
+
     return 0;
 }
