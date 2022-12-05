@@ -18,6 +18,9 @@
 !smart_Pointer/
 !smart_Pointer/*.cpp
 
+!binary_tree/
+!binary_tree/*.cpp
+
 !forwardListR/
 !forwardListR/*.cpp
 

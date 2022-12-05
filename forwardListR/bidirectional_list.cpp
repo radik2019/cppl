@@ -48,14 +48,11 @@ public:
         cout << "[";
         while (current->pnext != nullptr)
         {
-            cout  << current->data << ", ";
+            cout << current->data << ", ";
             current = current->pnext;
         }
         cout << current->data << "]\n";
     }
-
-
-
 
     void printReverse()
     {
@@ -68,15 +65,15 @@ public:
         cout << "[";
         while (current->previos != nullptr)
         {
-            cout  << current->data << ", ";
+            cout << current->data << ", ";
             current = current->previos;
         }
         cout << current->data << "]\n";
     }
 
+    void pushBack(T data)
+    {
 
-    void pushBack(T data){
-         
         if (head == nullptr)
         {
             this->head = new Node<T>(data);
@@ -93,21 +90,22 @@ public:
             currH->pnext = new Node<T>(data, currH);
             currH = currH->pnext;
             this->tail = currH; // Imposto la coda ogetto presente
-            /*Si crea un nuovo Node e li si da come parametri il dato 
+            /*Si crea un nuovo Node e li si da come parametri il dato
             e il puntatore del Node presente*/
         }
         ++this->Size;
     }
 
-    void pushFront(T data){
-         
+    void pushFront(T data)
+    {
+
         if (this->head == nullptr)
         {
             this->head = new Node<T>(data);
         }
         else
         {
-            Node<T> *temp = new Node<T>(data, nullptr ,this->head);
+            Node<T> *temp = new Node<T>(data, nullptr, this->head);
             this->head->previos = temp;
             this->head = temp;
         }
