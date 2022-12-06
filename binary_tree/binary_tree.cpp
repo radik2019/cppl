@@ -18,10 +18,41 @@ private:
         }
     };
 
+    void _print(Node *current = nullptr)
+    {
+        if (current == nullptr)
+        {
+            current = this->head;
+        }
+
+        if ((current->left == nullptr) && (current->right == nullptr))
+        {
+            cout << current->data << ", ";
+            return;
+        }
+
+        else if ((current->left != nullptr) && (current->right == nullptr))
+        {
+            cout << current->data << ", ";
+            this->_print(current->left);
+        }
+        else if ((current->left == nullptr) && (current->right != nullptr))
+        {
+            this->_print(current->right);
+            cout << current->data << ", ";
+        }
+        else
+        {
+            this->_print(current->right);
+            cout << current->data << ", ";
+            this->_print(current->left);
+        }
+    }
+
 public:
     Node *head;
 
-    BinaryTree(/* args */)
+    BinaryTree()
     {
         this->head = nullptr;
     }
@@ -39,31 +70,25 @@ public:
             {
                 if (data <= current->data)
                 {
-
                     if (current->right == nullptr)
                     {
                         current->right = new Node(data);
-                        // cout << "right Dato registrato " << current->data << endl;
                         break;
                     }
                     else
                     {
-                        // cout << "right passato per " << current->data << "\n";
                         current = current->right;
                     }
                 }
                 else
                 {
-
                     if (current->left == nullptr)
                     {
                         current->left = new Node(data);
-                        // cout << "left Dato registrato " << current->data << endl;
                         break;
                     }
                     else
                     {
-                        // cout << "left passato per " << current->data << "\n";
                         current = current->left;
                     }
                 }
@@ -71,52 +96,119 @@ public:
         }
     }
 
-    void print(Node *current = nullptr)
+    int getMin()
     {
+        Node *current = this->head;
+        while (current->right != nullptr)
+        {
+            current = current->right;
+        }
+        return current->data;
+    }
+
+    int getMax()
+    {
+        Node *current = this->head;
+        while (current->left != nullptr)
+        {
+            current = current->left;
+        }
+        return current->data;
+    }
+
+    bool isEmpty()
+    {
+
+        if (this->head == nullptr)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    bool exists(int data, Node *current = nullptr)
+    {
+
         if (current == nullptr)
         {
             current = this->head;
         }
-        
-
         if ((current->left == nullptr) && (current->right == nullptr))
         {
-            cout << current->data << ", ";
+            return data == current->data;
+        }
+        else if ((current->left != nullptr) && (current->right == nullptr))
+        {
+            if (current->data == data)
+            {
+                return true;
+            }
+            return this->exists(data, current->left);
+        }
+        else if ((current->left == nullptr) && (current->right != nullptr))
+        {
+            if (current->data == data)
+            {
+                return true;
+            }
+            return this->exists(data, current->right);
+        }
+        else
+        {
+            if (current->data == data)
+            {
+                return true;
+            }
+            return (this->exists(data, current->left) || this->exists(data, current->right));
+        }
+    }
+
+    void print()
+
+    {
+        if (this->isEmpty())
+        {
+            cout << "[]\n";
             return;
         }
 
-        if (current->right !=nullptr)
-        {
-            cout << current->data << ", ";
-            this->print(current->right);     
-        }
-        if (current->left !=nullptr)
-        {
-            cout << current->data << ", ";
-            this->print(current->left);
-             
-        }
-
+        cout << "[";
+        this->_print();
+        cout << "]\n";
     }
 };
 
 void test_init()
 {
     BinaryTree bn;
-    bn.push(1);
+    bn.print();
+    cout << "\n\n  is empty -> " << bn.isEmpty() << "\n\n";
     bn.push(10);
+    cout << "\n\n  is empty -> " << bn.isEmpty() << "\n\n";
+    bn.push(11);
+    bn.push(87);
+    bn.push(21);
+    bn.push(32);
+    bn.print();
+    bn.push(6);
+    bn.push(19);
+    bn.push(38);
+    bn.push(9);
+    bn.push(14);
     bn.push(2);
     bn.push(4);
-    bn.push(14);
     bn.push(6);
+    bn.print();
     bn.push(3);
-    bn.push(7);
-    bn.push(11);
-    bn.push(8);
+    bn.push(712);
     bn.push(5);
+    bn.print();
+    bn.push(23);
     bn.push(12);
     bn.push(13);
-    bn.push(9);
+    cout << "\n\n  exists(712) -> " << bn.exists(712) << "\n";
+    cout << "\n\n  Min  ->   " << bn.getMin() << "\n";
+    cout << "  Max   ->  " << bn.getMax() << "\n\n\n";
     bn.print();
 }
 
