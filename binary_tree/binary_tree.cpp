@@ -176,7 +176,106 @@ public:
         this->_print();
         cout << "]\n";
     }
+
+
+
+
+
+
+    void remove_value(int value, Node *current = nullptr)
+    {
+        if (current == nullptr)
+        {
+            if (this->head->data == value)
+            {
+                this->head = nullptr;
+                return;
+            }
+            else{
+                this->remove_value(value, this->head);
+                return;
+            }
+        }
+        else
+        {
+            if (current->left != nullptr)
+            {
+                if (current->left->data == value)
+                {
+                    cout << current->data << "      nel lato sinistro\n" ;
+                    return;
+                }
+                else
+                {
+                    // cout << current->data << " Vado nel lato sinistro -> "<< current->left->data << endl ;
+                    cout << current->left->data << "\t<-----\t"<< current->data << endl   ;
+                    this->remove_value(value, current->left);
+                    
+                }
+                
+            }
+            
+            if (current->right != nullptr) 
+            {
+                if (current->data == value)
+                {
+                    cout << current->data  << "     nel lato destro\n";
+                }
+                else
+                { 
+                    cout << "\t\t" << current->data << " ---->  "<< current->right->data << endl ;
+                    this->remove_value(value, current->right);
+                }
+                
+            }
+
+            if((current->left == nullptr) && (current->right == nullptr))
+            {
+                if (current->data == value)
+                {
+                    cout << "\t\t\t\t\t" << current->data << " <- returned\n";
+                    return;
+                }
+                else
+                {
+                    cout << "\t\t\t\t\t" << current->data << "\n";
+                    return;
+                }
+                
+                return;
+            }            
+        }
+    }
 };
+
+
+
+
+
+void test_remove()
+{
+    BinaryTree bn;
+    bn.push(10);
+    // bn.print();
+    bn.push(8);
+    // bn.remove_value(8); // il primo si rimuove OK!
+    bn.push(87);
+    bn.push(21);
+    bn.push(32);
+    bn.push(6);
+    bn.push(2);
+    bn.push(25);
+    bn.push(64);
+    bn.push(85);
+    bn.push(19);
+    bn.push(11);
+    bn.push(38);
+    bn.push(9);
+    bn.remove_value(6);
+
+    bn.print();
+    // bn.print();
+}
 
 void test_init()
 {
@@ -214,7 +313,10 @@ void test_init()
 
 int main()
 {
-
-    test_init();
+    // system("python3");
+    system("clear");
+    cout << "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\n\n ";
+    test_remove();
+    cout << "\n\n------------------------------------\n\n";
     return 0;
 }
