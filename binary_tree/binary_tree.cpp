@@ -26,7 +26,14 @@ private:
         }
 
         if ((current->left == nullptr) && (current->right == nullptr))
+
         {
+            if (current->data == this->getMin())
+            {
+                cout << current->data << "";
+                return;
+            }
+            
             cout << current->data << ", ";
             return;
         }
@@ -68,7 +75,7 @@ public:
             Node *current = this->head;
             while (true)
             {
-                if (data <= current->data)
+                if (data >= current->data)
                 {
                     if (current->right == nullptr)
                     {
@@ -96,7 +103,7 @@ public:
         }
     }
 
-    int getMin()
+    int getMax()
     {
         Node *current = this->head;
         while (current->right != nullptr)
@@ -106,7 +113,7 @@ public:
         return current->data;
     }
 
-    int getMax()
+    int getMin()
     {
         Node *current = this->head;
         while (current->left != nullptr)
@@ -128,7 +135,6 @@ public:
 
     bool exists(int data, Node *current = nullptr)
     {
-
         if (current == nullptr)
         {
             current = this->head;
@@ -179,7 +185,32 @@ public:
 
 
 
-
+    void removeAndPush(Node *current = nullptr, bool removed=false)
+    {
+        if (removed)
+        {
+            this->push(current->data);
+            if (current->left != nullptr)
+            {
+                this->removeAndPush(current->left, true);
+            }
+            if (current->right != nullptr)
+            {
+                this->removeAndPush(current->right, true);
+            }
+        }
+        else
+        {   
+            if (current->left != nullptr)
+            {
+                this->removeAndPush(current->left, true);
+            }
+            if (current->right != nullptr)
+            {
+                this->removeAndPush(current->right, true);
+            }            
+        }
+    }
 
 
     void remove_value(int value, Node *current = nullptr)
@@ -188,7 +219,25 @@ public:
         {
             if (this->head->data == value)
             {
+                bool headIsInitialized = false;
+                Node* temp_left = this->head->left;
+                Node* temp_right = this->head->right;
                 this->head = nullptr;
+                if (temp_left != nullptr)
+                {
+                    this->head = new Node(temp_left->data);
+                    headIsInitialized = true;
+                    this->removeAndPush(temp_left, true);
+                }
+                if (temp_right != nullptr)
+                {
+                    if (!headIsInitialized)
+                    {
+                        this->head = new Node(temp_right->data);
+                    }
+                    
+                    this->removeAndPush(temp_right, true);
+                }
                 return;
             }
             else{
@@ -198,83 +247,83 @@ public:
         }
         else
         {
-            if (current->left != nullptr)
-            {
-                if (current->left->data == value)
+            if (value > current->data)
+            {  
+                if (current->right != nullptr)
                 {
-                    cout << current->data << "      nel lato sinistro\n" ;
+                    if (current->right->data == value) 
+                    {
+                        Node* temp_right = current->right;
+                        current->right = nullptr;
+                        this->removeAndPush(temp_right);
+                        return;
+                    }
+                    this->remove_value(value, current->right);
+                    
                     return;
                 }
-                else
+            }
+            else if (value < current->data){
+                if (current->left != nullptr)
                 {
-                    // cout << current->data << " Vado nel lato sinistro -> "<< current->left->data << endl ;
-                    cout << current->left->data << "\t<-----\t"<< current->data << endl   ;
+                    if (current->left->data == value) 
+                    {
+                        Node* temp_left = current->left;
+                        current->left = nullptr;
+                        this->removeAndPush(temp_left);
+                        return;
+                    }
                     this->remove_value(value, current->left);
                     
+                    return;
                 }
-                
+                return;
+
+            }
+            else if(value == current->data)
+            {
+                cout << "   ===    "<<current->data << "\n";
             }
             
-            if (current->right != nullptr) 
-            {
-                if (current->data == value)
-                {
-                    cout << current->data  << "     nel lato destro\n";
-                }
-                else
-                { 
-                    cout << "\t\t" << current->data << " ---->  "<< current->right->data << endl ;
-                    this->remove_value(value, current->right);
-                }
-                
-            }
-
-            if((current->left == nullptr) && (current->right == nullptr))
-            {
-                if (current->data == value)
-                {
-                    cout << "\t\t\t\t\t" << current->data << " <- returned\n";
-                    return;
-                }
-                else
-                {
-                    cout << "\t\t\t\t\t" << current->data << "\n";
-                    return;
-                }
-                
-                return;
-            }            
         }
     }
 };
 
 
-
+BinaryTree *get_bin_tree()
+{
+    BinaryTree *bn = new BinaryTree;
+    bn->push(10);
+    // bn.print();
+    bn->push(8);
+    // bn.remove_value(8); // il primo si rimuove OK!
+    bn->push(87);
+    bn->push(21);
+    bn->push(32);
+    bn->push(6);
+    bn->push(2);
+    bn->push(25);
+    bn->push(64);
+    bn->push(85);
+    bn->push(19);
+    bn->push(11);
+    bn->push(38);
+    bn->push(9);
+    return bn;
+}
 
 
 void test_remove()
 {
-    BinaryTree bn;
-    bn.push(10);
-    // bn.print();
-    bn.push(8);
-    // bn.remove_value(8); // il primo si rimuove OK!
-    bn.push(87);
-    bn.push(21);
-    bn.push(32);
-    bn.push(6);
-    bn.push(2);
-    bn.push(25);
-    bn.push(64);
-    bn.push(85);
-    bn.push(19);
-    bn.push(11);
-    bn.push(38);
-    bn.push(9);
-    bn.remove_value(6);
+    BinaryTree *bn = get_bin_tree();
 
-    bn.print();
-    // bn.print();
+    bn->print();
+    bn->remove_value(21);
+    bn->print();
+    bn->remove_value(10);
+    cout << "exists   9   " << bn->exists(9) <<endl;
+
+    bn->print();
 }
 
 void test_init()
@@ -289,6 +338,7 @@ void test_init()
     bn.push(21);
     bn.push(32);
     bn.print();
+    cout << "  Max   ->  " << bn.getMax() << "\n\n\n";
     bn.push(6);
     bn.push(19);
     bn.push(38);
@@ -315,8 +365,8 @@ int main()
 {
     // system("python3");
     system("clear");
-    cout << "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --\n\n\n ";
-    test_remove();
-    cout << "\n\n------------------------------------\n\n";
+    cout << "------------------------------------------\n\n";
+    test_init();
+    cout << "\n------------------------------------\n\n";
     return 0;
 }
