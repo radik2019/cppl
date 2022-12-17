@@ -14,6 +14,8 @@
 !namespaceR/
 !namespaceR/*.cpp
 
+!functionLambda/
+!functionLambda/*.cpp
 
 !smart_Pointer/
 !smart_Pointer/*.cpp
