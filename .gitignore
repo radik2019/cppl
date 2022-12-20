@@ -17,6 +17,9 @@
 !functionLambda/
 !functionLambda/*.cpp
 
+!process_threading/
+!process_threading/*.cpp
+
 !smart_Pointer/
 !smart_Pointer/*.cpp
 
