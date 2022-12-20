@@ -14,8 +14,8 @@
 !namespaceR/
 !namespaceR/*.cpp
 
-!functionLambda/
-!functionLambda/*.cpp
+!functionR/
+!functionR/*.cpp
 
 !process_threading/
 !process_threading/*.cpp
